@@ -28,12 +28,6 @@ Development
 -----------
 **Maintenance status: periodically**
 
-.. _before buy:
-Before buy
-----------
-Please notice that there are many sellers (ebay, aliexpress, ..) who sell mfrc522 boards. The quality of these boards are extremely different. Some are soldered with wrong/low quality capacitors or fake/defect mfrc522.
-Please consider buying several devices from different suppliers. So the chance of getting a working device is higher.
-If you got a bad board and you can tell us how to detect those boards (silk, chip description, ..), please share your knowledge.
 .. _protocol:
 Protocols
 ---------
@@ -42,7 +36,7 @@ Protocols
 
 * The protocol is described in the `NXP PN512 <https://www.nxp.com/docs/en/data-sheet/PN512.pdf>`_ datasheet.
 
-* Pin Layout is described in the official document provided by the Digital Logic Ltd. Details can be found in the  `PN512 NFC Reader <https://github.com/nfc-rfid-reader-sdk/MFRC522_PN512/blob/master/doc/PN512%20NFC%20Reader.pdf>`_ document in the **doc** folder.
+* Pin Layout is described in the official document provided by the Digital Logic Ltd. Details can be found in the  `PN512 NFC Reader <https://github.com/nfc-rfid-reader-sdk/MFRC522_PN512/blob/master/doc/PN512_NFC_Reader_Based_on_Arduino.pdf>`_ document in the **doc** folder.
 
 2. The reader and the tags communicate using a 13.56 MHz electromagnetic field.
 
