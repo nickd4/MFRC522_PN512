@@ -75,6 +75,17 @@ const byte FM17522_firmware_reference[] PROGMEM = {
 	0x56, 0x9A, 0x98, 0x82, 0x26, 0xEA, 0x2A, 0x62
 };
 
+const byte PN512_firmware_reference[] PROGMEM = {
+	0x00, 0xEB, 0x66, 0xBA, 0x57, 0xBF, 0x23, 0x95,
+ 	0xD0, 0xE3, 0x0D, 0x3D, 0x27, 0x89, 0x5C, 0xDE,
+ 	0x9D, 0x3B, 0xA7, 0x00, 0x21, 0x5B, 0x89, 0x82,
+ 	0x51, 0x3A, 0xEB, 0x02, 0x0C, 0xA5, 0x00, 0x49,
+ 	0x7C, 0x84, 0x4D, 0xB3, 0xCC, 0xD2, 0x1B, 0x81,
+ 	0x5D, 0x48, 0x76, 0xD5, 0x71, 0x61, 0x21, 0xA9,
+ 	0x86, 0x96, 0x83, 0x38, 0xCF, 0x9D, 0x5B, 0x6D,
+ 	0xDC, 0x15, 0xBA, 0x3E, 0x7D, 0x95, 0x3B, 0x2F
+};
+
 class MFRC522 {
 public:
 	// Size of the MFRC522 FIFO
@@ -118,16 +129,16 @@ public:
 		// 						  0x1B			// reserved for future use
 		MfTxReg					= 0x1C << 1,	// controls some MIFARE communication transmit parameters
 		MfRxReg					= 0x1D << 1,	// controls some MIFARE communication receive parameters
-		// 						  0x1E			// reserved for future use
+        TypeBReg	        	= 0x1E << 1,	// Configure the ISO/IEC 14443 type B
 		SerialSpeedReg			= 0x1F << 1,	// selects the speed of the serial UART interface
 		
 		// Page 2: Configuration
 		// 						  0x20			// reserved for future use
 		CRCResultRegH			= 0x21 << 1,	// shows the MSB and LSB values of the CRC calculation
 		CRCResultRegL			= 0x22 << 1,
-		// 						  0x23			// reserved for future use
+		GsNOffReg	        	= 0x23 << 1,	// Selects the conductance of the antenna driver pin TX1 and TX2 for modulation, when the driver is switched off
 		ModWidthReg				= 0x24 << 1,	// controls the ModWidth setting?
-		// 						  0x25			// reserved for future use
+		TxBitPhaseReg 	        = 0x25 << 1, 	// Adjust the TX bit phase at 106 kbit
 		RFCfgReg				= 0x26 << 1,	// configures the receiver gain
 		GsNReg					= 0x27 << 1,	// selects the conductance of the antenna driver pins TX1 and TX2 for modulation 
 		CWGsPReg				= 0x28 << 1,	// defines the conductance of the p-driver output during periods of no modulation

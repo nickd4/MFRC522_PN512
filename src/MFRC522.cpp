@@ -6,6 +6,7 @@
 
 #include <Arduino.h>
 #include "MFRC522.h"
+#include "PN512.h"
 
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions for setting up the Arduino
@@ -223,22 +224,29 @@ void MFRC522::PCD_Init() {
 	}
 	
 	// Reset baud rates
-	PCD_WriteRegister(TxModeReg, 0x00);
-	PCD_WriteRegister(RxModeReg, 0x00);
-	// Reset ModWidthReg
-	PCD_WriteRegister(ModWidthReg, 0x26);
-
-	// When communicating with a PICC we need a timeout if something goes wrong.
-	// f_timer = 13.56 MHz / (2*TPreScaler+1) where TPreScaler = [TPrescaler_Hi:TPrescaler_Lo].
-	// TPrescaler_Hi are the four low bits in TModeReg. TPrescaler_Lo is TPrescalerReg.
-	PCD_WriteRegister(TModeReg, 0x80);			// TAuto=1; timer starts automatically at the end of the transmission in all communication modes at all speeds
-	PCD_WriteRegister(TPrescalerReg, 0xA9);		// TPreScaler = TModeReg[3..0]:TPrescalerReg, ie 0x0A9 = 169 => f_timer=40kHz, ie a timer period of 25μs.
-	PCD_WriteRegister(TReloadRegH, 0x03);		// Reload timer with 0x3E8 = 1000, ie 25ms before timeout.
-	PCD_WriteRegister(TReloadRegL, 0xE8);
+    PCD_WriteRegister(TxModeReg, 0x00);
+    PCD_WriteRegister(RxModeReg, 0x00);
+    PCD_WriteRegister(ModWidthReg, 0x26);
 	
-	PCD_WriteRegister(TxASKReg, 0x40);		// Default 0x00. Force a 100 % ASK modulation independent of the ModGsPReg register setting
-	PCD_WriteRegister(ModeReg, 0x3D);		// Default 0x3F. Set the preset value for the CRC coprocessor for the CalcCRC command to 0x6363 (ISO 14443-3 part 6.2.4)
-	PCD_AntennaOn();						// Enable the antenna driver pins TX1 and TX2 (they were disabled by the reset)
+    PCD_WriteRegister(TxASKReg, 0x40);			
+    PCD_WriteRegister(RxThresholdReg, 0xFF);
+    PCD_WriteRegister(ControlReg, 0x10);	
+    PCD_WriteRegister(DemodReg, 0x4D);		
+    PCD_WriteRegister(MfTxReg, 0x62);		
+    PCD_WriteRegister(TxBitPhaseReg, 0x87);	
+    PCD_WriteRegister(RxSelReg, 0x84);	
+    PCD_WriteRegister(RFCfgReg, 0x48);	
+    PCD_WriteRegister(GsNReg, 0x88);	
+    PCD_WriteRegister(CWGsPReg, 0x20);	
+    PCD_WriteRegister(GsNOffReg,0x88);	
+    PCD_WriteRegister(ModGsPReg,0x20);	
+
+    PCD_WriteRegister(ModeReg, 0x3D);		
+    PCD_WriteRegister(BitFramingReg, 0x00);	
+    PCD_WriteRegister(WaterLevelReg, 64);	
+    PCD_WriteRegister(TypeBReg, 0);			
+    PCD_WriteRegister(MfTxReg, 0x8A);	
+    PCD_AntennaOn();						// Enable the antenna driver pins TX1 and TX2 (they were disabled by the reset)
 } // End PCD_Init()
 
 /**
@@ -386,6 +394,10 @@ bool MFRC522::PCD_PerformSelfTest() {
 		case 0x92:	// Version 2.0
 			reference = MFRC522_firmware_referenceV2_0;
 			break;
+        case 0x82:	// PN512
+	        reference = PN512_firmware_reference;
+        break;
+
 		default:	// Unknown version
 			return false; // abort test
 	}
@@ -1379,6 +1391,7 @@ void MFRC522::PCD_DumpVersionToSerial() {
 		case 0x91: Serial.println(F(" = v1.0"));     break;
 		case 0x92: Serial.println(F(" = v2.0"));     break;
 		case 0x12: Serial.println(F(" = counterfeit chip"));     break;
+        case 0x82: Serial.println(F(" = PN512")); 	 break;
 		default:   Serial.println(F(" = (unknown)"));
 	}
 	// When 0x00 or 0xFF is returned, communication probably failed
