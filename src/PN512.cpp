@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-#include "PN512.h"
-
-
-
-void ledBlink(byte ms, byte pin){
-
-    PN512 test(2,3);
-    test.PICC_IsNewCardPresent();
-    
-
-}
-
-
-
-
-
-
-=======
 #include <Arduino.h>
 #include "PN512.h"
 
@@ -37,4 +18,5 @@ int PN512::printArrayHEX(char *message,byte *arrayToPrint, byte len){
   }
   return 0;
 }
->>>>>>> 79c5a6feeb5a1775274d2effad1261b4497c9663
+
+

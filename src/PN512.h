@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-
-
-#include "MFRC522.h"
-
-
-class PN512: MFRC522
-{
-private:
-    /* data */
-public:
-    PN512(/* args */);
-    ~PN512();
-};
-
-PN512::PN512(/* args */)
-{
-}
-
-PN512::~PN512()
-{
-}
-
-
-=======
 #ifndef PN512_h
 #define PN512_h
 
@@ -42,4 +17,6 @@ public:
 };
 
 #endif // PN512_h
->>>>>>> 79c5a6feeb5a1775274d2effad1261b4497c9663
+
+
+
