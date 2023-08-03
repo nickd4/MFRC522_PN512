@@ -12,16 +12,18 @@ Interface (SPI) interface.
 .. _changes made to the original library:
 Changes made to the original library
 ----------
-This library is a modified version of  `Miguelbaloba's RFID library <https://github.com/miguelbalboa/rfid>`_.
+This library is a modified version of  `Miguelbalboa's RFID library <https://github.com/miguelbalboa/rfid>`_.
 
 It is compatible with the PN512 NFC Module (an Arduino base module available from `Digital Logic Ltd <https://www.d-logic.com/>`_.) as well as other MFRC522 modules for which this library was previously utilized.
 
 **The main changes that were made:**
-Registers that initialize the chip were changed. 
-Added firmware version for PN512 chip 
-Added some examples.
 
-**All the changes that were made are in the document PN512_NFC_Reader in the doc folder**
+* Registers that initialize the chip were changed. 
+* Added firmware version for PN512 chip. 
+* Added examples for the PN512 reader.
+
+
+All the changes that were made are in the document `PN512_NFC_Reader_Based_on_Arduino <https://github.com/nfc-rfid-reader-sdk/MFRC522_PN512/blob/master/doc/PN512_NFC_Reader_Based_on_Arduino.pdf>`_ in the doc folder.
 
 .. _development:
 Development
