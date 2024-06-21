@@ -35,7 +35,7 @@ void loop() {
 
 
   //write info to USB/Keyboard
-  Keyboard.print("Card UID:\t");
+  Keyboard.print("Card UID: ");
   for(byte i = 0; i < reader.uid.size; i++){
     Keyboard.print(cardUID[i] < 0x10 ? "0" : "");//if byte[i] is less then 10h then print 0 else print nothing 
     Keyboard.print(cardUID[i],HEX);              //print byte[i]
