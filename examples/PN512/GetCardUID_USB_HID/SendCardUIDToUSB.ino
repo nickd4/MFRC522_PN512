@@ -6,7 +6,8 @@
 #define SS      2                  //set SS      pin to be pin 2
 
 PN512 reader(SS,RST);             //create reader instace
-byte serialCounter;
+byte serialCounter;					//init counter for first boot
+int rstCounter = 1;                 //rstCounter is used if PN self-test is unknown 
 
 void setup() {
   Serial.begin(9600);                //init Serial
@@ -18,9 +19,12 @@ void setup() {
 }
 
 void loop() {
-   if(Serial && serialCounter == 0) {
+   if(Serial || serialCounter == 0) {
     serialCounter = 1;
-    reader.PCD_DumpVersionToSerial();
+    while(rstCounter){
+      rstCounter = reader.PCD_DumpVersionToSerial();
+      delay(50);
+    }
     Serial.println("Reader is ready, scan card or tag");
   }
   if(!reader.PICC_IsNewCardPresent()) return;   //wait for new card to be present

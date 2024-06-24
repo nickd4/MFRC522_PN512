@@ -6,7 +6,8 @@
 #define SS      2                  //set SS      pin to be pin 2
 
 PN512 reader(SS,RST);             //create reader instace
-byte serialCounter;
+byte serialCounter;					//init counter for first boot
+int rstCounter = 1;                 //rstCounter is used if PN self-test is unknown 
 
 void setup() {
   Serial.begin(9600);                //init Serial
@@ -18,9 +19,12 @@ void setup() {
 }
 
 void loop() {
-   if(Serial && serialCounter == 0) {
+   if(Serial || serialCounter == 0) {
     serialCounter = 1;
-    reader.PCD_DumpVersionToSerial();
+    while(rstCounter){
+      rstCounter = reader.PCD_DumpVersionToSerial();
+      delay(50);
+    }
     Serial.println("Reader is ready, scan card or tag");
   }
   if(!reader.PICC_IsNewCardPresent()) return;   //wait for new card to be present
@@ -41,18 +45,18 @@ void loop() {
   
 
   //write info to USB/Keyboard
-  Keyboard.print("Card UID:\t");
+  Keyboard.print("Card UID: ");
   for(byte i = 0; i < reader.uid.size; i++){
     Keyboard.print(cardUID[i] < 0x10 ? "0" : "");//if byte[i] is less then 10h then print 0 else print nothing 
     Keyboard.print(cardUID[i],HEX);              //print byte[i]
   }
   Keyboard.write(0x0A);                     //press ENTER key for new line
 
-  Keyboard.print("Card SAK: \t");
+  Keyboard.print("Card SAK: ");
   Keyboard.print(cardSAK, HEX);
   Keyboard.write(0x0A);
 
-  Keyboard.print("Card Type: \t");
+  Keyboard.print("Card Type: ");
   Keyboard.print(reader.PICC_GetTypeName(cardType));
   Keyboard.write(0x0A);
   //done writing info 

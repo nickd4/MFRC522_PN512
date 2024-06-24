@@ -39,7 +39,7 @@ void loop() {
   for(byte i = 0; i < reader.uid.size; i++){
     cardUID[i] = reader.uid.uidByte[i];
   }
-  printArrayHEX("scanned card: \t",cardUID,reader.uid.size);  //to see what card is scanned, optional 
+  printArrayHEX("scanned card: ",cardUID,reader.uid.size);  //to see what card is scanned, optional 
 
   for(byte i = 0; i < reader.uid.size; i++){
     if(cardUID[i] != card[i]) continue;   //if the next byte does not match, break and continue to the rest of the code
