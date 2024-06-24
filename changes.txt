@@ -1,5 +1,9 @@
 -- Add changes to unreleased tag until we make a release.
 
+24 Jun 2024 , v1.4.12
+- fix: PN512 not detected. Reset PN and Init until detected.
+- Changes to 'example' code. Renamed all; Changed print 'tab' to 'space'.
+
 4 Aug 2023 , v1.4.11
 - Added support for PN512.
 

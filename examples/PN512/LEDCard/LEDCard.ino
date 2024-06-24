@@ -7,6 +7,7 @@
 
 PN512 reader(SS,RST);              //create reader instace
 byte serialCounter;                //init counter for first boot
+int rstCounter = 1;                 //rstCounter is used if PN self-test is unknown 
 
 void setup() {
   Serial.begin(9600);                //init Serial
@@ -19,9 +20,12 @@ void setup() {
 
 void loop() {
   //first loop counter just so that it prints out the version and message when or if Serial Monitor is enabled 
-  if(Serial && serialCounter == 0) {
+  if(Serial || serialCounter == 0) {
     serialCounter = 1;
-    reader.PCD_DumpVersionToSerial();
+    while(rstCounter){
+      rstCounter = reader.PCD_DumpVersionToSerial();
+      delay(50);
+    }
     Serial.println("Reader is ready, scan card or tag");
   }
 
@@ -30,7 +34,7 @@ void loop() {
   //ledBlink(5);                                  //indicator when the card is read
 
   byte cardUID[reader.uid.size];                
-  byte card[4] = {0x04, 0x13, 0x95, 0x6A};      //set your card here
+  byte card[4] = {0x04, 0x13, 0x95, 0x6A};      //<------- set your card here
 
   for(byte i = 0; i < reader.uid.size; i++){
     cardUID[i] = reader.uid.uidByte[i];
