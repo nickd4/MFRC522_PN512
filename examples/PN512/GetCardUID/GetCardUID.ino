@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   //first loop counter just so that it prints out the version and message when or if Serial Monitor is enabled 
-  if(Serial || serialCounter == 0) {
+  if(Serial && serialCounter == 0) {
     serialCounter = 1;
     while(rstCounter){
       rstCounter = reader.PCD_DumpVersionToSerial();
