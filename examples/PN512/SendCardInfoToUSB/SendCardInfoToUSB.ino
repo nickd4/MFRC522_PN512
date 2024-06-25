@@ -19,7 +19,7 @@ void setup() {
 }
 
 void loop() {
-   if(Serial || serialCounter == 0) {
+   if(Serial && serialCounter == 0) {
     serialCounter = 1;
     while(rstCounter){
       rstCounter = reader.PCD_DumpVersionToSerial();
