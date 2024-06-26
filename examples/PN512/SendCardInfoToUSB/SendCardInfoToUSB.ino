@@ -19,13 +19,16 @@ void setup() {
 }
 
 void loop() {
-   if(Serial && serialCounter == 0) {
+  if(Serial){
+    reader.PCD_DumpVersionToSerial();
+    Serial.println("Reader is ready, scan card or tag");
+  }
+  if(serialCounter == 0) {
     serialCounter = 1;
     while(rstCounter){
       rstCounter = reader.PCD_DumpVersionToSerial();
       delay(50);
     }
-    Serial.println("Reader is ready, scan card or tag");
   }
   if(!reader.PICC_IsNewCardPresent()) return;   //wait for new card to be present
   if(!reader.PICC_ReadCardSerial())   return;   //read that new card 

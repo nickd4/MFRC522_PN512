@@ -140,7 +140,7 @@ public:
 		ModWidthReg				= 0x24 << 1,	// controls the ModWidth setting?
 		TxBitPhaseReg 	        = 0x25 << 1, 	// Adjust the TX bit phase at 106 kbit
 		RFCfgReg				= 0x26 << 1,	// configures the receiver gain
-		GsNReg					= 0x27 << 1,	// selects the conductance of the antenna driver pins TX1 and TX2 for modulation 
+		GsNOnReg				= 0x27 << 1,	// selects the conductance of the antenna driver pins TX1 and TX2 for modulation 
 		CWGsPReg				= 0x28 << 1,	// defines the conductance of the p-driver output during periods of no modulation
 		ModGsPReg				= 0x29 << 1,	// defines the conductance of the p-driver output during periods of modulation
 		TModeReg				= 0x2A << 1,	// defines settings for the internal timer

@@ -19,14 +19,16 @@ void setup() {
 }
 
 void loop() {
-  //first loop counter just so that it prints out the version and message when or if Serial Monitor is enabled 
-  if(Serial && serialCounter == 0) {
+  if(Serial){
+    reader.PCD_DumpVersionToSerial();
+    Serial.println("Reader is ready, scan card or tag");
+  }
+  if(serialCounter == 0) {
     serialCounter = 1;
     while(rstCounter){
       rstCounter = reader.PCD_DumpVersionToSerial();
       delay(50);
     }
-    Serial.println("Reader is ready, scan card or tag");
   }
 
   if(!reader.PICC_IsNewCardPresent()) return;   //wait for new card to be present

@@ -236,9 +236,9 @@ void MFRC522::PCD_Init() {
     PCD_WriteRegister(TxBitPhaseReg, 0x87);	
     PCD_WriteRegister(RxSelReg, 0x84);	
     PCD_WriteRegister(RFCfgReg, 0x48);	
-    PCD_WriteRegister(GsNReg, 0x88);	
-    PCD_WriteRegister(CWGsPReg, 0x20);	
     PCD_WriteRegister(GsNOffReg,0x88);	
+	PCD_WriteRegister(CWGsPReg, 0x20);	
+	PCD_WriteRegister(GsNOnReg,0x88);	
     PCD_WriteRegister(ModGsPReg,0x20);	
 
     PCD_WriteRegister(ModeReg, 0x3D);		
