@@ -4,3 +4,7 @@ MFRC522.zip
 .idea
 cmake
 CMakeLists.txt
+
+# Nick
+*.o
+/examples/PN512/GetCardInfo/GetCardInfo
