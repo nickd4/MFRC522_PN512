@@ -224,29 +224,29 @@ void MFRC522::PCD_Init() {
 	}
 	
 	// Reset baud rates
-    PCD_WriteRegister(TxModeReg, 0x00);
-    PCD_WriteRegister(RxModeReg, 0x00);
-    PCD_WriteRegister(ModWidthReg, 0x26);
-	
-    PCD_WriteRegister(TxASKReg, 0x40);			
-    PCD_WriteRegister(RxThresholdReg, 0xFF);
-    PCD_WriteRegister(ControlReg, 0x10);	
-    PCD_WriteRegister(DemodReg, 0x4D);		
-    PCD_WriteRegister(MfTxReg, 0x62);		
-    PCD_WriteRegister(TxBitPhaseReg, 0x87);	
-    PCD_WriteRegister(RxSelReg, 0x84);	
-    PCD_WriteRegister(RFCfgReg, 0x48);	
-    PCD_WriteRegister(GsNOffReg,0x88);	
-	PCD_WriteRegister(CWGsPReg, 0x20);	
-	PCD_WriteRegister(GsNOnReg,0x88);	
-    PCD_WriteRegister(ModGsPReg,0x20);	
+	//PCD_WriteRegister(TxModeReg, 0x00);
+	//PCD_WriteRegister(RxModeReg, 0x00);
+	//PCD_WriteRegister(ModWidthReg, 0x26);
 
-    PCD_WriteRegister(ModeReg, 0x3D);		
-    PCD_WriteRegister(BitFramingReg, 0x00);	
-    PCD_WriteRegister(WaterLevelReg, 64);	
-    PCD_WriteRegister(TypeBReg, 0);			
-    PCD_WriteRegister(MfTxReg, 0x8A);	
-    PCD_AntennaOn();						// Enable the antenna driver pins TX1 and TX2 (they were disabled by the reset)
+	PCD_WriteRegister(TxASKReg, 0x40); // TxAutoReg, set Force100ASK
+	//PCD_WriteRegister(RxThresholdReg, 0xFF); // this is wrong !!!
+	PCD_WriteRegister(ControlReg, 0x10); // set Initiator
+	//PCD_WriteRegister(DemodReg, 0x4D);
+	//PCD_WriteRegister(MfTxReg, 0x62); // MifNFCReg
+	//PCD_WriteRegister(TxBitPhaseReg, 0x87);
+	//PCD_WriteRegister(RxSelReg, 0x84);
+	//PCD_WriteRegister(RFCfgReg, 0x48);
+	//PCD_WriteRegister(GsNOffReg,0x88);
+	//PCD_WriteRegister(CWGsPReg, 0x20);
+	//PCD_WriteRegister(GsNOnReg,0x88);
+	//PCD_WriteRegister(ModGsPReg,0x20);
+
+	PCD_WriteRegister(ModeReg, 0x39); // Nick 0x3D); // set ModeDetOff, CRCPreset 6363
+	//PCD_WriteRegister(BitFramingReg, 0x00);
+	PCD_WriteRegister(WaterLevelReg, 64); // increase from 8 to 64
+	//PCD_WriteRegister(TypeBReg, 0);
+	//PCD_WriteRegister(MfTxReg, 0x8A); // MifNFCReg, SensMiller 4, TauMiller 1
+	PCD_AntennaOn();						// Enable the antenna driver pins TX1 and TX2 (they were disabled by the reset)
 } // End PCD_Init()
 
 /**
